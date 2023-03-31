@@ -3,7 +3,7 @@ const { RequestError } = require("../../helpers");
 
 const getRecipeById = async (req, res) => {
   const { id } = req.params;
-  const recepie = Recipe.findById(id);
+  const recepie = await Recipe.findById(id);
 
   if (!recepie) throw RequestError(404, "Not found");
 

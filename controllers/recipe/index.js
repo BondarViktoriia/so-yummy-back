@@ -1,7 +1,7 @@
-const ctrlWrapper = require('../../middlewares')
+const { ctrlWrapper } = require("../../middlewares");
 
 const { getRecipeById } = require("./getRecipeById");
 
 module.exports = {
-    getRecipeById: ctrlWrapper(getRecipeById)
-}
+  getRecipeById: ctrlWrapper(getRecipeById),
+};
