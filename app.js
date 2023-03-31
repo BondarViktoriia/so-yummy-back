@@ -7,6 +7,9 @@ const subscribeRouter = require('./routes/api/subscribe')
 const recipesRouter = require('./routes/api/recipes')
 const ingredientsRouter = require('./routes/api/ingredients')
 const ownRecipiesRouter = require('./routes/api/ownRecipes')
+const favoriteRouter = require('./routes/api/favorite')
+const popularRecipeRouter = require('./routes/api/popularRecipe')
+const shoppingListRouter = require('./routes/api/shoppingList')
 
 const app = express()
 
@@ -20,7 +23,12 @@ app.use('/api/auth', authRouter);
 app.use("/api/subscribe", subscribeRouter);
 app.use('/api/recipes', recipesRouter);
 app.use('/api/ingredients', ingredientsRouter);
-app.use('/api/ownRecipes',ownRecipiesRouter)
+app.use('/api/ownRecipes', ownRecipiesRouter);
+app.use('/api/favorite', favoriteRouter);
+app.use('/api/popularRecipe', popularRecipeRouter);
+app.use('/api/shoppingList',shoppingListRouter)
+
+
 
 
 
