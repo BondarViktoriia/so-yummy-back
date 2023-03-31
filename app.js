@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const authRouter = require('./routes/api/auth')
 const subscribeRouter = require('./routes/api/subscribe')
+const recipesRouter = require('./routes/api/recipes')
 
 const app = express()
 
@@ -14,7 +15,9 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/api/auth', authRouter);
-app.use("api/subscribe", subscribeRouter);
+app.use("/api/subscribe", subscribeRouter);
+app.use('/api/recipes', recipesRouter);
+
 
 
 app.use((req, res) => {
