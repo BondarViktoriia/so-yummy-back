@@ -19,7 +19,8 @@ const joiVerifyIngredient = Joi.object({
 
 const shoppingListSchema = Schema({
   owner: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "user",
     required: true,
   },
   ingredients: {

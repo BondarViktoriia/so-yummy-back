@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "642098424a3f87c8f4913ecc"
+  },
+  "password": "$2b$10$yDHm0.qXoKxWJOoJTnlJHuPoTDjefW1M5BVgnUVjH6pyyccvSDqty",
+  "email": "etw.katedz@gmail.com",
+  "subscription": "starter",
+  "avatarURL": "avatars\\642098424a3f87c8f4913ecc_2.jpg",
+  "verify": true,
+  "verificationToken": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjA5ODQyNGEzZjg3YzhmNDkxM2VjYyIsImlhdCI6MTY3OTg1Nzg1NiwiZXhwIjoxNjc5OTQwNjU2fQ.QLMaBAB0kZBs05Sv-dnCBs0aljH0u2CHpAK1-md4H8E"
+},{
+  "_id": {
+    "$oid": "6421dc57c1b0f7e61466d761"
+  },
+  "password": "$2b$10$85G3YPhDJbFKX.YW.imKF.TA36bdt.eYNmTOAW188NfdEfTx1cTKC",
+  "email": "katekateee1911@gmail.com",
+  "subscription": "starter",
+  "avatarURL": "//www.gravatar.com/avatar/23771a90ab1528befc27fca8bacb5f17",
+  "verify": true,
+  "verificationToken": null
+}]
