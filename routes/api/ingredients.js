@@ -4,14 +4,8 @@ const router = express.Router();
 
 const Ingredient = require('../../models/ingredient');
 
-const ctrl = {};
+const ctrl = require('../../controllers/ingredientsCtrl');
 
-ctrl.ingredients = async (req, res) => {
-  const allIngreds = await Ingredient.find();
-
-  res.status(201).json(allIngreds);
-};
-
-router.get('/', ctrl.ingredients);
+router.get('/', ctrl.ingredientsAll);
 
 module.exports = router;
