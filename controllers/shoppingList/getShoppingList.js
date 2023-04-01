@@ -1,10 +1,11 @@
-const { ShoppingList } = require("../models/shoppingList");
-const ctrlWrapper = require("../middlewares/ctrlWrapper");
+const { ShoppingList } = require("../../models");
+const ctrlWrapper = require("../../middlewares/ctrlWrapper");
+const { ShoppingListModel } = ShoppingList;
 
 const getShoppingList = async (req, res) => {
   const { _id: owner } = req.user;
   console.log("getShoppingList   owner:", owner);
-  const result = await ShoppingList.find({ owner: "642098424a3f87c8f4913ecc" });
+  const result = await ShoppingListModel.find({ owner });
   console.log("getShoppingList   result:", result);
   res.json(result);
 };

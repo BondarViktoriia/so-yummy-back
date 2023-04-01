@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
+const { handleSchemaValidationErrors } = require("../helpers");
 
 const IngredientSchema = Schema({
   ingredientName: {
@@ -29,9 +30,11 @@ const shoppingListSchema = Schema({
   },
 });
 
-const ShoppingList = model("shoppingList", shoppingListSchema);
+shoppingListSchema.post("save", handleSchemaValidationErrors);
+
+const ShoppingListModel = model("shoppingList", shoppingListSchema);
 
 module.exports = {
-  ShoppingList,
+  ShoppingListModel,
   joiVerifyIngredient,
 };
