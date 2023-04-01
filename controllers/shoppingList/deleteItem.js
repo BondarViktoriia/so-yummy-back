@@ -1,17 +1,22 @@
-const { ShoppingList } = require("../../models");
+const { shoppingList } = require("../../models");
 const ctrlWrapper = require("../../middlewares/ctrlWrapper");
 const RequestError = require("../../helpers/RequestError");
 const { isValidObjectId } = require("mongoose");
 
-const { ShoppingListModel } = ShoppingList;
+const { ShoppingListModel } = shoppingList;
 
 const deleteItem = async (req, res, next) => {
   const id = req.params.itemId;
-  console.log("deleteItem   id:", id);
   if (!isValidObjectId(id)) {
     next(RequestError(400, `${id} is not valid!`));
   }
-  const deletedItem = await ShoppingListModel.findByIdAndRemove({ _id: id });
+  const owner = req.user._id;
+  const deletedItem = await ShoppingListModel.findOneAndUpdate(
+    {
+      owner,
+    },
+    { $pull: { ingredients: { _id: id } } }
+  );
   if (!deletedItem) {
     throw RequestError(404, "Not found");
   }

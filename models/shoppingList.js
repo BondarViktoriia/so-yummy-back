@@ -20,6 +20,7 @@ const IngredientSchema = Schema({
 const joiVerifyIngredient = Joi.object({
   ingredientName: Joi.string().required(),
   quantity: Joi.string().required(),
+  image: Joi.string().required(),
 });
 
 const shoppingListSchema = Schema({
@@ -28,10 +29,7 @@ const shoppingListSchema = Schema({
     ref: "user",
     required: true,
   },
-  ingredients: {
-    type: [IngredientSchema],
-    default: undefined,
-  },
+  ingredients: [{ type: IngredientSchema, ref: "Ingredient" }],
 });
 
 shoppingListSchema.post("save", handleSchemaValidationErrors);
