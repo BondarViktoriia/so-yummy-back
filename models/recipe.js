@@ -20,7 +20,7 @@ const recipeSchema = new Schema(
       type: String,
       required: true,
     },
-    //Large image for page of certain recipe (Картинка для сторінки одного рецепту)
+    // Large image for page of certain recipe // (Картинка для сторінки одного рецепту)
     largeImg: {
       type: String,
       required: true,
