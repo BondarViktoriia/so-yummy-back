@@ -12,11 +12,12 @@ const extendedIngredientSchema = new Schema(
   })
 );
 
-console.log("extendedIngredientSchema", extendedIngredientSchema);
 const joiVerifyIngredient = Joi.object({
-  ingredientName: Joi.string().required(),
+  ttl: Joi.string().required().min(3),
+  decs: Joi.string().required(),
+  t: Joi.string().required(),
+  thb: Joi.string().required(),
   quantity: Joi.string().required(),
-  image: Joi.string().required(),
 });
 
 const shoppingListSchema = Schema({
