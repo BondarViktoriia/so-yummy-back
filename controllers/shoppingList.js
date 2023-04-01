@@ -1,5 +1,5 @@
 const { ShoppingList } = require("../models/shoppingList");
-const ctrlWrapper = require("../middelwares/ctrlWrapper");
+const ctrlWrapper = require("../middlewares/ctrlWrapper");
 
 const getShoppingList = async (req, res) => {
   const { _id: owner } = req.user;
