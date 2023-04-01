@@ -56,6 +56,10 @@ const recipeSchema = new Schema(
         ref: "user",
       },
     ],
+    users: {
+      type: Array,
+      required: true,
+    },
     popularity: {
       type: Number,
     },

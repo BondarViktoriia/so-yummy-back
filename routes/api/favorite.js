@@ -1,10 +1,8 @@
-const express = require('express')
+const express = require("express");
+const { getFavorite } = require("../../controllers/recipe");
 
-const router = express.Router()
+const router = express.Router();
 
+router.get("/favorite", getFavorite);
 
-
-
-
-
-module.exports = router
+module.exports = router;
