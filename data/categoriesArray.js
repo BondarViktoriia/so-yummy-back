@@ -1,0 +1,17 @@
+module.exports = [
+  "Beef",
+  "Chicken",
+  "Dessert",
+  "Lamb",
+  "Miscellaneous",
+  "Pasta",
+  "Pork",
+  "Seafood",
+  "Side",
+  "Starter",
+  "Vegan",
+  "Vegetarian",
+  "Breakfast",
+  "Goat",
+  "Another",
+];
