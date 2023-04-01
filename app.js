@@ -32,11 +32,6 @@ app.use('/api/favorite', favoriteRouter);
 app.use('/api/popularRecipe', popularRecipeRouter);
 app.use('/api/shoppingList',shoppingListRouter)
 
-
-
-
-
-
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
 })
