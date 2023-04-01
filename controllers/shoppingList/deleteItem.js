@@ -4,6 +4,7 @@ const RequestError = require("../../helpers/RequestError");
 const { isValidObjectId } = require("mongoose");
 
 const { ShoppingListModel } = require('../../models');
+const { ShoppingList } = ShoppingListModel;
 
 const deleteItem = async (req, res, next) => {
   const id = req.params.itemId;
@@ -11,7 +12,7 @@ const deleteItem = async (req, res, next) => {
     next(RequestError(400, `${id} is not valid id!`));
   }
   const owner = req.user._id;
-  const deletedItem = await ShoppingListModel.findOneAndUpdate(
+  const deletedItem = await ShoppingList.findOneAndUpdate(
     {
       owner,
     },

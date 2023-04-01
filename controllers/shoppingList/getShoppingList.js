@@ -1,10 +1,11 @@
 // const { ShoppingList } = require("../../models");
 const ctrlWrapper = require("../../middlewares/ctrlWrapper");
-const {  ShoppingListModel } = require('../../models/shoppingList');
+const { ShoppingListModel } = require("../../models");
+const { ShoppingList } = ShoppingListModel;
 
 const getShoppingList = async (req, res) => {
   const { _id: owner } = req.user;
-  const result = await ShoppingListModel.find({ owner });
+  const result = await ShoppingList.find({ owner });
   res.json(result);
 };
 

@@ -1,13 +1,13 @@
 const { ShoppingListModel } = require("../../models");
 const ctrlWrapper = require("../../middlewares/ctrlWrapper");
 
-// const { ShoppingListModel } = shoppingList;
+const { ShoppingList } = ShoppingListModel;
 
 const addItem = async (req, res) => {
   const owner = req.user._id;
-  const isExisting = await ShoppingListModel.findOne({ owner });
+  const isExisting = await ShoppingList.findOne({ owner });
   if (isExisting) {
-    const newCollection = await ShoppingListModel.findOneAndUpdate(
+    const newCollection = await ShoppingList.findOneAndUpdate(
       {
         owner,
       },
@@ -17,7 +17,7 @@ const addItem = async (req, res) => {
 
     res.status(201).json({ status: 201, data: newCollection });
   } else {
-    const newCollection = await ShoppingListModel.create({
+    const newCollection = await ShoppingList.create({
       owner,
       ingredients: [req.body],
     });

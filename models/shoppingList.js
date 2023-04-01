@@ -34,9 +34,9 @@ const shoppingListSchema = Schema({
 
 shoppingListSchema.post("save", handleSchemaValidationErrors);
 
-const ShoppingListModel = model("shoppingList", shoppingListSchema);
+const ShoppingList = model("shoppingList", shoppingListSchema);
 
 module.exports = {
-  ShoppingListModel,
+  ShoppingList,
   joiVerifyIngredient,
 };
