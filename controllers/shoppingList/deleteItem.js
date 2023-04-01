@@ -8,7 +8,7 @@ const { ShoppingListModel } = shoppingList;
 const deleteItem = async (req, res, next) => {
   const id = req.params.itemId;
   if (!isValidObjectId(id)) {
-    next(RequestError(400, `${id} is not valid!`));
+    next(RequestError(400, `${id} is not valid id!`));
   }
   const owner = req.user._id;
   const deletedItem = await ShoppingListModel.findOneAndUpdate(
