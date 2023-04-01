@@ -1,9 +1,9 @@
-const { shoppingList } = require("../../models");
+// const { shoppingList } = require("../../models");
 const ctrlWrapper = require("../../middlewares/ctrlWrapper");
 const RequestError = require("../../helpers/RequestError");
 const { isValidObjectId } = require("mongoose");
 
-const { ShoppingListModel } = shoppingList;
+const { ShoppingListModel } = require('../../models');
 
 const deleteItem = async (req, res, next) => {
   const id = req.params.itemId;

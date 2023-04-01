@@ -1,6 +1,6 @@
-const { ShoppingList } = require("../../models");
+// const { ShoppingList } = require("../../models");
 const ctrlWrapper = require("../../middlewares/ctrlWrapper");
-const { ShoppingListModel } = ShoppingList;
+const {  ShoppingListModel } = require('../../models/shoppingList');
 
 const getShoppingList = async (req, res) => {
   const { _id: owner } = req.user;

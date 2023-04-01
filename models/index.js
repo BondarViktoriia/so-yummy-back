@@ -1,9 +1,9 @@
 const { Recipe } = require("./recipe");
 const { User } = require("./user");
-const ShoppingList = require("./shoppingList");
+const {ShoppingListModel }= require("./shoppingList");
 
 module.exports = {
   Recipe,
   User,
-  ShoppingList
+  ShoppingListModel
 };

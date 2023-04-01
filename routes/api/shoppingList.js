@@ -4,10 +4,10 @@ const router = express.Router();
 
 const { shoppingListCtrls } = require("../../controllers");
 const { auth, validation } = require("../../middlewares");
-const { ShoppingList } = require("../../models");
+const { ShoppingListModel } = require("../../models");
 const { getShoppingList, deleteItem, addItem } = shoppingListCtrls;
 
-const { joiVerifyIngredient } = ShoppingList;
+const { joiVerifyIngredient } = ShoppingListModel;
 
 router.get("/", auth, getShoppingList);
 router.delete("/:itemId", auth, deleteItem);
