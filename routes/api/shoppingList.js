@@ -9,7 +9,7 @@ const { getShoppingList, deleteItem, addItem } = shoppingListCtrls;
 
 const { joiVerifyIngredient } = ShoppingList;
 
-router.get("/", getShoppingList);
+router.get("/", auth, getShoppingList);
 router.delete("/:itemId", auth, deleteItem);
 router.post("/", auth, validation(joiVerifyIngredient), addItem);
 
