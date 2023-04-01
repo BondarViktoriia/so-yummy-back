@@ -2,10 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-const Ingredient = require('../../models/ingredient');
-
 const ctrl = require('../../controllers/ingredientsCtrl');
 
-router.get('/', ctrl.ingredientsAll);
+router.get('/list', ctrl.ingredientsAll);
+
+router.get('/ingredient', ctrl.receipeByIngredient);
 
 module.exports = router;
