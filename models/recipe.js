@@ -29,7 +29,7 @@ const recipeSchema = new Schema(
       type: String,
       required: [true, "Set cooking time for your recepie"],
     },
-    ingradients: [
+    ingredients: [
       {
         id: {
           type: Schema.Types.ObjectId,
@@ -86,7 +86,7 @@ const addSchema = Joi.object({
     "string.empty": `Recipe time cannot be empty`,
     "any.required": `Recipe time is required`,
   }),
-  ingradients: Joi.string().required().messages({
+  ingredients: Joi.string().required().messages({
     "string.empty": `Recipe ingradients cannot be empty`,
     "any.required": `Recipe ingradients is required`,
   }),
