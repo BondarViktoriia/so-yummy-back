@@ -32,7 +32,7 @@ app.use("/api/favorite", favoriteRouter);
 app.use("/api/popular-recipe", popularRecipeRouter);
 app.use("/api/shoppingList", shoppingListRouter);
 app.get("/api/recipes/category-list", (req, res) => {
-  res.json(categoriesList);
+  res.json(categoriesList.sort());
 });
 
 app.use((req, res) => {

@@ -13,5 +13,4 @@ module.exports = [
   "Vegetarian",
   "Breakfast",
   "Goat",
-  "Another",
 ];
