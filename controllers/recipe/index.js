@@ -21,4 +21,5 @@ module.exports = {
   getPopularRecipes: ctrlWrapper(getPopularRecipes),
   addToFavorite: ctrlWrapper(addToFavorite),
   getCategories: ctrlWrapper(getCategories),
+  getFavorite:ctrlWrapper(getFavorite)
 };
