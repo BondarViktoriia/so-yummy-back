@@ -1,9 +1,8 @@
-const express = require('express')
-const { search } = require("../../controllers");
+const express = require("express");
+const { recipe } = require("../../controllers");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/recipes", search.searchRecipe)
-router.get("/ingredients/:ingredient", search.searchIngredient)
+router.get("/recipes", recipe.searchRecipe);
 
-module.exports = router
+module.exports = router;
