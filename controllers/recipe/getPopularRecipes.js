@@ -2,7 +2,6 @@ const { Recipe } = require("../../models");
 const { RequestError } = require("../../helpers");
 
 const getPopularRecipes = async (req, res) => {
-  console.log(Recipe);
   const result = await Recipe.aggregate([
     {
       $project: {
