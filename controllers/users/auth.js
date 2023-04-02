@@ -2,17 +2,17 @@ const { User } = require("../../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const gravatar = require("gravatar");
+// const gravatar = require("gravatar");
 const path = require("path");
 const fs = require("fs/promises");
 const Jimp = require("jimp");
 const { v4: uuidv4 } = require("uuid");
 
-const { HttpError, sendEmail } = require("../../helpers");
+const { RequestError } = require("../../helpers");
 
-const { ctrlWrapper } = require("../../middelwares");
+const { ctrlWrapper } = require("../../middlewares");
 
-const { SECRET_KEY, BASE_URL } = process.env;
+const { SECRET_KEY } = process.env;
 
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
@@ -21,33 +21,33 @@ const signup = async (req, res, next) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    throw HttpError(409, "Email already in use");
+    throw RequestError(409, "Email already in use");
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
-  const avatarURL = gravatar.url(email);
+  // const avatarURL = gravatar.url(email);
   const verificationToken = uuidv4();
 
   const newUser = await User.create({
     ...req.body,
     password: hashPassword,
-    avatarURL,
+    // avatarURL,
     verificationToken,
   });
 
-  const verifyEmail = {
-    to: email,
-    subject: "Verify email",
-    html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationToken}">Click verify email</a>`,
-  };
+  // const verifyEmail = {
+  //   to: email,
+  //   subject: "Verify email",
+  //   html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationToken}">Click verify email</a>`,
+  // };
 
-  await sendEmail(verifyEmail);
+  // await sendEmail(verifyEmail);
 
   res.status(201).json({
     message: "new user created",
     user: {
       email: newUser.email,
-      subscription: newUser.subscription,
+      // subscription: newUser.subscription,
     },
   });
 };
@@ -98,16 +98,16 @@ const signin = async (req, res, next) => {
 
   const user = await User.findOne({ email: email });
   if (!user) {
-    throw HttpError(401, "Email is not verified");
+    throw RequestError(401, "Email is not verified");
   }
 
-  if (!user.verify) {
-    throw HttpError(401, "Email or password invalid");
-  }
+  // if (!user.verify) {
+  //   throw RequestError(401, "Email or password invalid");
+  // }
 
   const passwordCompare = await bcrypt.compare(password, user.password);
   if (!passwordCompare) {
-    throw HttpError(401, "Email or password invalid");
+    throw RequestError(401, "Email or password invalid");
   }
 
   const payload = {
@@ -137,6 +137,7 @@ const getCurrent = async (req, res) => {
 
 const logout = async (req, res) => {
   const { _id } = req.user;
+  // const user = await User.findByIdAndUpdate(_id, { token: null });
   const user = await User.findById(_id);
   console.log(user);
   user.token = null;
@@ -167,10 +168,10 @@ const updateAvatar = async (req, res) => {
 };
 
 module.exports = {
-  signin: ctrlWrapper(signup),
+  signup: ctrlWrapper(signup),
   // verifyEmail: ctrlWrapper(verifyEmail),
   // resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
-  login: ctrlWrapper(signin),
+  signin: ctrlWrapper(signin),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
   updateAvatar: ctrlWrapper(updateAvatar),

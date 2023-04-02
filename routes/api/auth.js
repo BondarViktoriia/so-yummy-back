@@ -3,7 +3,7 @@ const express = require("express");
 
 const ctrl = require("../../controllers/users/auth");
 
-const { validation, auth } = require("../../middelwares");
+const { validation, auth } = require("../../middlewares");
 // ,  upload
 
 const { schemas } = require("../../models/user");
@@ -11,14 +11,14 @@ const { schemas } = require("../../models/user");
 const router = express.Router();
 
 // signup
-router.post("/singup", validation(schemas.registerSchema), ctrl.register);
+router.post("/signup", validation(schemas.registerSchema), ctrl.signup);
 
 // router.get("/verify/:verificationToken", ctrl.verifyEmail);
 
 // router.post("/verify", validation(schemas.emailSchema), ctrl.resendVerifyEmail);
 
 // signin
-router.post("/signin", validation(schemas.loginSchema), ctrl.login);
+router.post("/signin", validation(schemas.loginSchema), ctrl.signin);
 
 router.get("/current", auth, ctrl.getCurrent);
 
