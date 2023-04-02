@@ -24,7 +24,7 @@ module.exports = {
   getOwnerRecipes: ctrlWrapper(getOwnerRecipes),
   getRecipeMain: ctrlWrapper(getRecipeMain),
   getPopularRecipes: ctrlWrapper(getPopularRecipes),
-  searchRecipe: ctrlWrapper(searchRecipe)
+  searchRecipe: ctrlWrapper(searchRecipe),
   addToFavorite: ctrlWrapper(addToFavorite),
   getCategories: ctrlWrapper(getCategories),
   getFavorite: ctrlWrapper(getFavorite),
