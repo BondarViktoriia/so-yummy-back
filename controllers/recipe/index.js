@@ -6,8 +6,10 @@ const getOwnerRecipes = require("./getOwnerRecipes");
 const { getRecipeById } = require("./getRecipeById");
 const { getPopularRecipes } = require("./getPopularRecipes");
 const { getFavorite } = require("./getFavorite");
-const { getCategories } = require("./getCategories");
 
+const { addToFavorite } = require("./addToFavorite");
+
+const { getCategories } = require("./getCategories");
 const { getRecipeMain } = require("./getRecipeMain");
 
 module.exports = {
@@ -17,6 +19,6 @@ module.exports = {
   getOwnerRecipes: ctrlWrapper(getOwnerRecipes),
   getRecipeMain: ctrlWrapper(getRecipeMain),
   getPopularRecipes: ctrlWrapper(getPopularRecipes),
-  getFavorite: ctrlWrapper(getFavorite),
+  addToFavorite: ctrlWrapper(addToFavorite),
   getCategories: ctrlWrapper(getCategories),
 };
