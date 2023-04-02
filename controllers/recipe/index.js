@@ -6,6 +6,7 @@ const getOwnerRecipes = require("./getOwnerRecipes");
 const { getRecipeById } = require("./getRecipeById");
 const { getPopularRecipes } = require("./getPopularRecipes");
 const { getFavorite } = require("./getFavorite");
+const { getCategories } = require("./getCategories");
 
 const { getRecipeMain } = require("./getRecipeMain");
 
@@ -17,4 +18,5 @@ module.exports = {
   getRecipeMain: ctrlWrapper(getRecipeMain),
   getPopularRecipes: ctrlWrapper(getPopularRecipes),
   getFavorite: ctrlWrapper(getFavorite),
+  getCategories: ctrlWrapper(getCategories),
 };

@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get("/recipe/:id", recipe.getRecipeById);
 
-router.get("/main", recipe.getRecipeMain )
+router.get("/recipe/:category", recipe.getCategories);
+
+router.get("/main", recipe.getRecipeMain);
 
 module.exports = router;
