@@ -1,10 +1,13 @@
-const express = require('express')
+const express = require("express");
 
-const router = express.Router()
+const { recipe } = require("../../controllers");
 
+const router = express.Router();
 
+router.get("/recipe/:id", recipe.getRecipeById);
 
+router.get("/recipe/:category", recipe.getCategories);
 
+router.get("/main", recipe.getRecipeMain);
 
-
-module.exports = router
+module.exports = router;
