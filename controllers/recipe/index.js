@@ -8,6 +8,7 @@ const { getPopularRecipes } = require("./getPopularRecipes");
 const { getFavorite } = require("./getFavorite");
 
 const { addToFavorite } = require("./addToFavorite");
+const { deleteFromFavorite } = require("./deleteFromFavorite");
 
 const { getCategories } = require("./getCategories");
 const { getRecipeMain } = require("./getRecipeMain");
@@ -21,5 +22,6 @@ module.exports = {
   getPopularRecipes: ctrlWrapper(getPopularRecipes),
   addToFavorite: ctrlWrapper(addToFavorite),
   getCategories: ctrlWrapper(getCategories),
-  getFavorite:ctrlWrapper(getFavorite)
+  getFavorite: ctrlWrapper(getFavorite),
+  deleteFromFavorite: ctrlWrapper(deleteFromFavorite),
 };
