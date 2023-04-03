@@ -10,6 +10,9 @@
   "servers": [
     {
       "url": "http://localhost:3000/api"
+    },
+    {
+      "url": "https://so-yummy-7n94.onrender.com/api"
     }
   ],
   "tags": [
@@ -42,7 +45,182 @@
       "description": "Shopping-list endpoints"
     }
   ],
-  "paths": {},
+  "paths": {
+    "/favorite": {
+      "get": {
+        "tags": ["Favorite"],
+        "summary": "Get favorite",
+        "parameters": [],
+        "sequrity": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FavoriteResponse"
+              }
+            }
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Succesfull operations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "desctiption": "message",
+                      "example": "Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favorite/:id": {
+      "put": {
+        "tags": ["Favorite"],
+        "summary": "Add favorite",
+        "parameters": [],
+        "sequrity": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FavoriteResponse"
+              }
+            }
+          }
+        },
+        "response": {
+          "201": {
+            "description": "Added to favorite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This recipe has already added to favorite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "desctiption": "message",
+                      "example": "This recipe has already added to favorite"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Favorite"],
+        "summary": "Delete favorite",
+        "parameters": [],
+        "sequrity": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FavoriteResponse"
+              }
+            }
+          }
+        },
+        "response": {
+          "201": {
+            "description": "Deleted from favorite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This recipe is not in favorites",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "desctiption": "message",
+                      "example": "This recipe is not in favorites"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FavoriteResponse": {
+        "type": "object",
+        "description": "response",
+        "properties": {
+          "code": {
+            "type": "intager",
+            "description": "code",
+            "example": "200"
+          },
+          "status": {
+            "type": "string",
+            "description": "status",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "description": "data",
+            "properties": {
+              "result": {
+                "type": "array",
+                "items": {
+                  "$ref": ""
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
 
   "securitySchemes": {
     "Bearer": {
