@@ -90,6 +90,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
+                }
+              }
+            }
           }
         }
       }
@@ -135,6 +145,16 @@
                       "example": "This recipe has already added to favorite"
                     }
                   }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
                 }
               }
             }
@@ -221,6 +241,16 @@
                       "example": "Not Found"
                     }
                   }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
                 }
               }
             }
@@ -377,6 +407,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
+                }
+              }
+            }
           }
         }
       }
@@ -438,6 +478,127 @@
           },
           "404": {
             "description": "Not found"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes/recipe/:id": {
+      "get": {
+        "tags": ["Recipe"],
+        "summary": "Get recipe",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "Id recipe",
+            "exampl": "6429e30be39b4267fa5d272a"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipeResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "desctiption": "message",
+                      "example": ":id is not a valid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes/recipe/:category": {
+      "get": {
+        "tags": ["Recipe"],
+        "summary": "Get recipe by category",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "category",
+            "required": true,
+            "type": "string",
+            "description": "category recipe",
+            "exampl": "Beef"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipesResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
+                }
+              }
+            }
           }
         }
       }
@@ -753,6 +914,169 @@
                 }
               }
             }
+          }
+        }
+      },
+      "RecipeResponse": {
+        "type": "object",
+        "description": "response",
+        "properties": {
+          "code": {
+            "type": "intager",
+            "description": "code",
+            "example": "200"
+          },
+          "status": {
+            "type": "string",
+            "description": "status",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "description": "data",
+            "properties": {
+              "recipe": {
+                "$ref": "#/components/schemas/Recipe"
+              }
+            }
+          }
+        }
+      },
+      "Recipe": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "id",
+            "example": "6426a8c69388c4008e8266f9"
+          },
+          "title": {
+            "type": "string",
+            "description": "title",
+            "example": "Bakewell tart"
+          },
+          "category": {
+            "type": "string",
+            "description": "category",
+            "example": "Dessert"
+          },
+          "area": {
+            "type": "string",
+            "description": "area",
+            "example": "British"
+          },
+          "instructions": {
+            "type": "string",
+            "description": "instructions",
+            "example": "To make the pastry, measure the flour into a bowl and rub in the butter with your fingertips until the mixture resembles fine breadcrumbs. Add the water, mixing to form a soft dough.Roll out the dough on a lightly floured work surface and use to line a 20cm/8in flan tin. Leave in the fridge to chill for 30 minutes.Preheat the oven to 200C/400F/Gas 6 (180C fan).Line the pastry case with foil and fill with baking beans. Bake blind for about 15 minutes, then remove the beans and foil and cook for a further five minutes to dry out the base.For the filing, spread the base of the flan generously with raspberry jam.Melt the butter in a pan, take off the heat and then stir in the sugar. Add ground almonds, egg and almond extract. Pour into the flan tin and sprinkle over the flaked almonds.Bake for about 35 minutes. If the almonds seem to be browning too quickly, cover the tart loosely with foil to prevent them burning."
+          },
+          "description": {
+            "type": "string",
+            "description": "description",
+            "example": "A British dessert consisting of a shortcrust pastry shell filled with raspberry jam, frangipane, and topped with almonds."
+          },
+          "thumb": {
+            "type": "string",
+            "description": "thumb",
+            "example": "https://www.themealdb.com/images/media/meals/wyrqqq1468233628.jpg"
+          },
+          "preview": {
+            "type": "string",
+            "description": "preview",
+            "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560408/lygbfa7j94dgegmvnpas.jpg"
+          },
+          "time": {
+            "type": "string",
+            "description": "time",
+            "example": "85"
+          },
+          "popularity": {
+            "type": "intager",
+            "description": "popularity",
+            "example": "1"
+          },
+          "favorites": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "time",
+              "example": "640e10b12752a54004e7b2bc"
+            }
+          },
+
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "tags",
+              "example": "Tart"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "createdAt",
+            "example": "2023-03-11T19:25:33.239+00:00"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "updatedAt",
+            "example": "2023-03-22T11:38:07.552+00:00"
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "ingredient",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "createdAt",
+                  "example": "640c2dd963a319ea671e3743"
+                },
+                "measure": {
+                  "type": "string",
+                  "description": "createdAt",
+                  "example": "175g/6oz2"
+                }
+              }
+            }
+          }
+        }
+      },
+      "RecipesResponse": {
+        "type": "object",
+        "description": "response",
+        "properties": {
+          "code": {
+            "type": "intager",
+            "description": "code",
+            "example": "200"
+          },
+          "status": {
+            "type": "string",
+            "description": "status",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "description": "data",
+            "properties": {
+              "recipes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotAuthorized": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Unauthorized"
           }
         }
       }
