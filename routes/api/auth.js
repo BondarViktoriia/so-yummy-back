@@ -1,25 +1,60 @@
-const express = require('express')
+const express = require("express");
+// const { start } = require("repl");
 
-const router = express.Router()
+const ctrl = require("../../controllers/users/auth");
 
-router.post('/signup', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+const { validation, auth } = require("../../middlewares");
+// ,  upload
 
-router.post('/signin', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+const { schemas } = require("../../models/user");
 
-router.get('/current', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+const router = express.Router();
 
-router.get('/logout', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+// signup
+router.post("/signup", validation(schemas.registerSchema), ctrl.signup);
 
-router.patch('/:id/subscription', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+// router.get("/verify/:verificationToken", ctrl.verifyEmail);
 
-module.exports = router
+// router.post("/verify", validation(schemas.emailSchema), ctrl.resendVerifyEmail);
+
+// signin
+router.post("/signin", validation(schemas.loginSchema), ctrl.signin);
+
+router.get("/current", auth, ctrl.getCurrent);
+
+router.post("/logout", auth, ctrl.logout);
+
+// router.patch(
+//   "/avatars"
+//   auth,
+//   upload.single("avatar"),
+//   ctrl.updateAvatar
+// );
+
+module.exports = router;
+
+// const express = require("express");
+
+// const router = express.Router();
+
+// router.post("/signup", async (req, res, next) => {
+//   res.json({ message: "template message" });
+// });
+
+// router.post("/signin", async (req, res, next) => {
+//   res.json({ message: "template message" });
+// });
+
+// router.get("/current", async (req, res, next) => {
+//   res.json({ message: "template message" });
+// });
+
+// router.get("/logout", async (req, res, next) => {
+//   res.json({ message: "template message" });
+// });
+
+// router.patch("/:id/subscription", async (req, res, next) => {
+//   res.json({ message: "template message" });
+// });
+
+// module.exports = router;
