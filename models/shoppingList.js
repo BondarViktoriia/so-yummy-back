@@ -1,23 +1,39 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { handleSchemaValidationErrors } = require("../helpers");
-const Ingredient = require("./ingredient");
+// const Ingredient = require("./ingredient");
 
-const extendedIngredientSchema = new Schema(
-  Object.assign(Object.create(Ingredient), {
-    quantity: {
-      type: String,
-      required: [true, "Set quantity of ingredient"],
-    },
-  })
-);
+const extendedIngredientSchema = Schema({
+  ttl: {
+    type: String,
+    require: [true, "Set title of ingredient"],
+    minlength: 3,
+  },
+  decs: {
+    type: String,
+    require: [true, "Set description of ingredient"],
+  },
+  t: {
+    type: String,
+    require: [true, "Set tag of ingredient"],
+  },
+
+  thb: {
+    type: String,
+    require: [true, "Set picture of ingredient"],
+  },
+  measure: {
+    type: String,
+    required: [true, "Set quantity of ingredient"],
+  },
+});
 
 const joiVerifyIngredient = Joi.object({
   ttl: Joi.string().required().min(3),
   decs: Joi.string().required(),
   t: Joi.string().required(),
   thb: Joi.string().required(),
-  quantity: Joi.string().required(),
+  measure: Joi.string().required(),
 });
 
 const shoppingListSchema = Schema({
@@ -26,7 +42,7 @@ const shoppingListSchema = Schema({
     ref: "user",
     required: true,
   },
-  ingredients: [{ type: extendedIngredientSchema, ref: "Ingredient" }],
+  ingredients: [extendedIngredientSchema],
 });
 
 shoppingListSchema.post("save", handleSchemaValidationErrors);
