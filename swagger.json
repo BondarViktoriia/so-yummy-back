@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "version": "0.0.1",
+    "title": "So Yummy API documentation",
+    "description": "API documentation for So Yummy project."
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Recipes",
+      "description": "Recipes endpoints"
+    },
+    {
+      "name": "Ingredients",
+      "description": "Ingredients endpoints"
+    },
+    {
+      "name": "Own recipes",
+      "description": "Own recipes endpoints"
+    },
+    {
+      "name": "Favorite",
+      "description": "Favorite endpoints"
+    },
+    {
+      "name": "Popular",
+      "description": "Popular endpoints"
+    },
+    {
+      "name": "Shopping-list",
+      "description": "Shopping-list endpoints"
+    }
+  ],
+  "paths": {},
+
+  "securitySchemes": {
+    "Bearer": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
+  }
+}
