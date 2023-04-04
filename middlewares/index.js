@@ -1,10 +1,11 @@
-const ctrlWrapper = require('./ctrlWrapper');
-const validation = require('./validation');
-const auth = require('./auth')
-
+const ctrlWrapper = require("./ctrlWrapper");
+const validation = require("./validation");
+const auth = require("./auth");
+const uploadCloud = require("./uploadCloud");
 
 module.exports = {
-    ctrlWrapper,
-    validation,
-    auth
-}
+  ctrlWrapper,
+  validation,
+  auth,
+  uploadCloud,
+};
