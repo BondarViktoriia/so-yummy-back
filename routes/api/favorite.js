@@ -8,8 +8,8 @@ const { auth } = require("../../middlewares");
 
 const router = express.Router();
 
-router.get("/favorite", auth, getFavorite);
-router.patch("/favorite/:id", auth, addToFavorite);
-router.patch("/favorite/:id", auth, deleteFromFavorite);
+router.get("/", auth, getFavorite);
+router.put("/:id", auth, addToFavorite);
+router.patch("/:id", auth, deleteFromFavorite);
 
 module.exports = router;
