@@ -17,7 +17,7 @@ const { SECRET_KEY } = process.env;
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
 const signup = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (user) {
@@ -47,6 +47,7 @@ const signup = async (req, res, next) => {
     message: "new user created",
     user: {
       email: newUser.email,
+      name: newUser.name,
       // subscription: newUser.subscription,
     },
   });
