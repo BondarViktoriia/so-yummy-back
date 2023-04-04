@@ -2,6 +2,7 @@ const Ingredient = require('../models/ingredient');
 const { Recipe } = require('../models/recipe');
 
 const { ctrlWrapper } = require('../middlewares');
+const { RequestError } = require('../helpers');
 
 const ingredientsAll = async (req, res) => {
   const allIngreds = await Ingredient.find();
@@ -10,13 +11,29 @@ const ingredientsAll = async (req, res) => {
 };
 
 const receipeByIngredient = async (req, res) => {
-  const allRecipe = await Recipe.findById('6426a8c69388c4008e8266f8');
+  // ingredient має прийти з фронта як динамічний параметр запиту. Назва інгредієнту може бути з малої або великої
+  // http://localhost:3000/api/ingredients/?ingredient=Chicken
+  const ingredName = req.query.ingredient;
 
-  // for (let recipe of allRecipe) {
-  //   recipe.ingredients;
-  // }
+  if (!ingredName) {
+    throw RequestError(400, 'Put an ingredient name');
+  }
 
-  res.status(201).json(allRecipe.ingredients);
+  const ttl = ingredName.charAt(0).toUpperCase() + ingredName.slice(1);
+
+  const ingredID = await Ingredient.findOne({ ttl }, '_id');
+
+  if (!ingredID) {
+    throw RequestError(400, 'There is no such ingredient');
+  }
+
+  const { _id } = ingredID;
+
+  const allRecipe = await Recipe.find({
+    ingredients: { $elemMatch: { id: _id } },
+  });
+
+  res.status(201).json(allRecipe);
 };
 
 module.exports = {
