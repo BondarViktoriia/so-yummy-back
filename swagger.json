@@ -795,6 +795,34 @@
           }
         }
       }
+    },
+        "/ingredients/list": {
+      "get": {
+        "tags": ["Ingredients"],
+        "summary": "Ingredients list",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngredientsListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ingredients not found",
+            "content": {}
+          }
+        }
+      }
     }
   },
 
@@ -1450,6 +1478,54 @@
             "type": "string",
             "desctiption": "status",
             "example": "success"
+          }
+        }
+      },
+            "IngredientsListResponse": {
+        "type": "object",
+        "properties": {
+          "meals": {
+            "type": "array",
+            "description": "Ingredient",
+            "items": {
+              "type": "object",
+              "properties": {
+                "idIngredient": {
+                  "type": "string",
+                  "description": "Ingredient id",
+                  "example": "1"
+                },
+                "ttl": {
+                  "type": "string",
+                  "description": "Ingredient name",
+                  "example": "Black Pepper"
+                },
+                "decs": {
+                  "type": "string",
+                  "description": "Ingredient description",
+                  "example": "Black pepper (Piper nigrum) is a flowering vine in the family Piperaceae, cultivated for its fruit, known as a peppercorn, which is usually dried and used as a spice and seasoning. When fresh and fully mature, it is about 5 mm (0.20 in) in diameter and dark red, and contains a single seed, like all drupes. Peppercorns and the ground pepper derived from them may be described simply as pepper, or more precisely as black pepper (cooked and dried unripe fruit), green pepper (dried unripe fruit), or white pepper (ripe fruit seeds).Black pepper is native to present-day Kerala in Southwestern India, and is extensively cultivated there and elsewhere in tropical regions. Vietnam is the world's largest producer and exporter of pepper, producing 34% of the world's crop, as of 2013."
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Ingredient type",
+                  "example": "null"
+                }
+              }
+            },
+            "example": [
+              {
+                "idIngredient": "1",
+                "ttl": "Black Pepper",
+                "decs": "The chicken is a type of domesticated fowl, a subspecies of the red junglefowl (Gallus gallus).",
+                "type": null
+              },
+              {
+                "idIngredient": "2",
+                "ttl": "Basmati Rice",
+                "decs": "Basmati is a variety of long, slender-grained aromatic rice which is traditionally from the Indian subcontinent. As of 2018-19, India exported to over 90% of the overseas basmati rice market, while Pakistan accounted for the remainder, according to the Indian state-run Agricultural and Processed Food Products Export Development Authority  and the Pakistan government-run Economic Survey of Pakistan. Many countries use domestically grown basmati rice crops; however, basmati is geographically exclusive to select districts of India, Pakistan, Nepal and Bangladesh.",
+                "type": null
+              }
+            ]
           }
         }
       }
