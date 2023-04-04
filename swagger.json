@@ -494,7 +494,7 @@
     },
     "/recipes/recipe/:id": {
       "get": {
-        "tags": ["Recipe"],
+        "tags": ["Recipes"],
         "summary": "Get recipe",
         "security": [{ "Bearer": [] }],
         "parameters": [
@@ -550,7 +550,7 @@
     },
     "/recipes/recipe/:category": {
       "get": {
-        "tags": ["Recipe"],
+        "tags": ["Recipes"],
         "summary": "Get recipe by category",
         "security": [{ "Bearer": [] }],
         "parameters": [
@@ -586,6 +586,199 @@
                       "example": "Not Found"
                     }
                   }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes/main": {
+      "get": {
+        "tags": ["Recipes"],
+        "summary": "Get recipe",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipesMainResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unable to save on database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to save on database"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email already in use"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "requestBody": {
+          "description": "User object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SigninRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SigninResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Email or password invalid / Email not verification / Email or password invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email or password invalid / Email not verification / Email or password invalid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User current",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SigninResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotAuthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
                 }
               }
             }
@@ -1077,6 +1270,186 @@
           "message": {
             "type": "string",
             "example": "Unauthorized"
+          }
+        }
+      },
+      "RecipesMainResponse": {
+        "type": "object",
+        "description": "response",
+        "properties": {
+          "code": {
+            "type": "intager",
+            "description": "code",
+            "example": "200"
+          },
+          "status": {
+            "type": "string",
+            "description": "status",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "description": "data",
+            "properties": {
+              "recipes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "Recipe",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "description": "category recipe",
+                      "example": "Beef"
+                    },
+                    "recipes": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Recipe"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SignupResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "desctiption": "code",
+            "example": "201"
+          },
+          "message": {
+            "type": "string",
+            "desctiption": "code message",
+            "example": "success"
+          },
+          "data": {
+            "required": ["name", "email", "avatarURL"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "User"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "avatar URL",
+                "example": "https://www.gravatar.com/avatar/504331b9583bb0a7b5501f76d811c1a1"
+              }
+            }
+          }
+        }
+      },
+      "SigninRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "clg54896512"
+          }
+        }
+      },
+      "SignupRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "User"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "clg54896512"
+          }
+        }
+      },
+      "SigninResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "desctiption": "code",
+            "example": "201"
+          },
+          "status": {
+            "type": "string",
+            "desctiption": "code message",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "required": ["User", "token"],
+            "properties": {
+              "User": {
+                "required": ["id", "name", "email", "avatarURL"],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "User's id",
+                    "example": "6429e180bf4c8cd15a219e1d"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "User's name",
+                    "example": "User"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  },
+                  "avtarURL": {
+                    "type": "string",
+                    "description": "avtar URL",
+                    "example": "https://www.gravatar.com/avatar/504331b9583bb0a7b5501f76d811c1a1"
+                  },
+                  "token": {
+                    "type": "string",
+                    "description": "User's token",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjllNGZhZWI4ZmFiN2JkMzY4NjU0MiIsImlhdCI6MTY4MDQ2ODUwMywiZXhwIjoxNjgwNTUxMzAzfQ.jPp-RjUtVGOfEkJtqjoOmUysZAwXtMFE5-UKnvLienU"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "desctiption": "code",
+            "example": "200"
+          },
+          "status": {
+            "type": "string",
+            "desctiption": "status",
+            "example": "success"
           }
         }
       }
