@@ -6,6 +6,6 @@ const ctrl = require('../../controllers/ingredientsCtrl');
 
 router.get('/list', ctrl.ingredientsAll);
 
-router.get('/ingredient', ctrl.receipeByIngredient);
+router.get('/', ctrl.receipeByIngredient);
 
 module.exports = router;
