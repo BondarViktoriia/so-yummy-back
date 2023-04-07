@@ -17,8 +17,9 @@ const searchRecipe = async (req, res) => {
 
 const searchRecipeByIngredient = async (req, res) => {
   const { title } = req.query;
+  const decodeTitle = decodeURI(title);
   const ingredID = await Ingredient.findOne({
-    ttl: { $regex: title, $options: "i" },
+    ttl: { $regex: decodeTitle, $options: "i" },
   }, '_id');
   const { _id } = ingredID;
   const result = await Recipe.find({
