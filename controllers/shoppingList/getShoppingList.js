@@ -6,7 +6,7 @@ const { ShoppingList } = ShoppingListModel;
 const getShoppingList = async (req, res) => {
   const { _id: owner } = req.user;
   const result = await ShoppingList.find({ owner });
-  res.json(result);
+  res.json(result[0]?.ingredients);
 };
 
 module.exports = {
