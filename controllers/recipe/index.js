@@ -7,7 +7,7 @@ const { getRecipeById } = require("./getRecipeById");
 const { getPopularRecipes } = require("./getPopularRecipes");
 
 const {searchRecipe} = require("./searchRecipe")
-
+const {searchRecipeByIngredient}= require("./searchRecipe")
 const { getFavorite } = require("./getFavorite");
 
 const { addToFavorite } = require("./addToFavorite");
@@ -25,6 +25,7 @@ module.exports = {
   getRecipeMain: ctrlWrapper(getRecipeMain),
   getPopularRecipes: ctrlWrapper(getPopularRecipes),
   searchRecipe: ctrlWrapper(searchRecipe),
+  searchRecipeByIngredient: ctrlWrapper(searchRecipeByIngredient),
   addToFavorite: ctrlWrapper(addToFavorite),
   getCategories: ctrlWrapper(getCategories),
   getFavorite: ctrlWrapper(getFavorite),
