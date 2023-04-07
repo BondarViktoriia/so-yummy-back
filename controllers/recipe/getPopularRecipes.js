@@ -9,6 +9,8 @@ const getPopularRecipes = async (req, res) => {
         title: 1,
         thumb: 1,
         description: 1,
+        popularity: 1,
+        preview: 1,
         count: { $size: "$favorites" },
       },
     },
