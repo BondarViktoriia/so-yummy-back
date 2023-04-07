@@ -41,10 +41,11 @@ const recipeSchema = new Schema(
     // Ingredients for recipe (Інградієнти для рецепту)
     ingredients: [
       {
+        _id: false,
         // Ingredient id (ID інградієнту)
-        _id: {
+        id: {
           type: Schema.Types.ObjectId,
-          required: true,
+          ref: 'ingred',
         },
         // Ingradient quantity (Кількість інградієнту)
         measure: {
