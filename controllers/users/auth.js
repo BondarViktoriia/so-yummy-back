@@ -17,7 +17,7 @@ const { SECRET_KEY } = process.env;
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
 const signup = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (user) {
@@ -135,6 +135,7 @@ const getCurrent = async (req, res) => {
     password,
   });
 };
+
 
 const logout = async (req, res) => {
   const { _id } = req.user;

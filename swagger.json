@@ -493,7 +493,7 @@
       }
     },
     "/recipes/recipe/:id": {
-      "get": {
+  "get": {
         "tags": ["Recipes"],
         "summary": "Get recipe",
         "security": [{ "Bearer": [] }],
@@ -504,7 +504,7 @@
             "required": true,
             "type": "string",
             "description": "Id recipe",
-            "exampl": "6429e30be39b4267fa5d272a"
+            "exampl": "640cd5ac2d9fecf12e8897ee"
           }
         ],
         "responses": {
@@ -518,7 +518,7 @@
               }
             }
           },
-          "404": {
+          "400": {
             "description": "Not Found",
             "content": {
               "application/json": {
@@ -741,26 +741,28 @@
     "/auth/current": {
       "get": {
         "tags": ["Auth"],
-        "summary": "User current",
-        "security": [{ "Bearer": [] }],
+        "summary": "Gets the current user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Access token",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "User retrieved successfully",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SigninResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotAuthorized"
-                }
+                "schema": {}
               }
             }
           }
@@ -770,28 +772,25 @@
     "/auth/logout": {
       "post": {
         "tags": ["Auth"],
-        "summary": "User logout",
-        "security": [{ "Bearer": [] }],
+        "summary": "Logs out a user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Logout",
+            "in": "header",
+            "description": "Access token",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjllNGZhZWI4ZmFiN2JkMzY4NjU0MiIsImlhdCI6MTY4MDQ2ODUwMywiZXhwIjoxNjgwNTUxMzAzfQ.jPp-RjUtVGOfEkJtqjoOmUysZAwXtMFE5-UKnvLienU"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LogoutResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotAuthorized"
-                }
-              }
-            }
+            "description": "User logged out successfully"
           }
         }
       }
@@ -1156,7 +1155,7 @@
             "type": "object",
             "description": "data",
             "properties": {
-              "recipe": {
+              "result": {
                 "$ref": "#/components/schemas/Recipe"
               }
             }
@@ -1166,82 +1165,94 @@
       "Recipe": {
         "type": "object",
         "properties": {
-          "_id": {
+          "id": {
             "type": "string",
             "description": "id",
-            "example": "6426a8c69388c4008e8266f9"
+            "example": "640cd5ac2d9fecf12e8897fc"
           },
           "title": {
             "type": "string",
             "description": "title",
-            "example": "Bakewell tart"
+            "example": "Spaghetti Bolognese"
           },
           "category": {
             "type": "string",
             "description": "category",
-            "example": "Dessert"
+            "example": "Beef"
           },
           "area": {
             "type": "string",
             "description": "area",
-            "example": "British"
+            "example": "Italian"
           },
           "instructions": {
             "type": "string",
             "description": "instructions",
-            "example": "To make the pastry, measure the flour into a bowl and rub in the butter with your fingertips until the mixture resembles fine breadcrumbs. Add the water, mixing to form a soft dough.Roll out the dough on a lightly floured work surface and use to line a 20cm/8in flan tin. Leave in the fridge to chill for 30 minutes.Preheat the oven to 200C/400F/Gas 6 (180C fan).Line the pastry case with foil and fill with baking beans. Bake blind for about 15 minutes, then remove the beans and foil and cook for a further five minutes to dry out the base.For the filing, spread the base of the flan generously with raspberry jam.Melt the butter in a pan, take off the heat and then stir in the sugar. Add ground almonds, egg and almond extract. Pour into the flan tin and sprinkle over the flaked almonds.Bake for about 35 minutes. If the almonds seem to be browning too quickly, cover the tart loosely with foil to prevent them burning."
+            "example": "Put the onion and oil in a large pan and fry over a fairly high heat for 3-4 mins. Add the garlic and mince and fry until they both brown. Add the mushrooms and herbs, and cook for another couple of mins.\r\n\r\nStir in the tomatoes, beef stock, tomato ketchup or purée, Worcestershire sauce and seasoning. Bring to the boil, then reduce the heat, cover and simmer, stirring occasionally, for 30 mins.\r\n\r\nMeanwhile, cook the spaghetti in a large pan of boiling, salted water, according to packet instructions. Drain well, run hot water through it, put it back in the pan and add a dash of olive oil, if you like, then stir in the meat sauce. Serve in hot bowls and hand round Parmesan cheese, for sprinkling on top."
           },
           "description": {
             "type": "string",
             "description": "description",
-            "example": "A British dessert consisting of a shortcrust pastry shell filled with raspberry jam, frangipane, and topped with almonds."
+            "example": "An Italian pasta dish made with spaghetti and a meat-based sauce, typically containing beef, tomatoes, onions, garlic, and herbs."
           },
           "thumb": {
             "type": "string",
             "description": "thumb",
-            "example": "https://www.themealdb.com/images/media/meals/wyrqqq1468233628.jpg"
+            "example": "https://www.themealdb.com/images/media/meals/sutysw1468247559.jpg"
           },
           "preview": {
             "type": "string",
             "description": "preview",
-            "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560408/lygbfa7j94dgegmvnpas.jpg"
+            "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560401/huqdxgwkvbhsfjqtexsm.jpg"
           },
           "time": {
             "type": "string",
             "description": "time",
-            "example": "85"
+            "example": "45"
           },
           "popularity": {
             "type": "intager",
             "description": "popularity",
-            "example": "1"
+            "example": "2"
           },
           "favorites": {
             "type": "array",
             "items": {
               "type": "string",
               "description": "time",
-              "example": "640e10b12752a54004e7b2bc"
+              "example": "640cd5ac2d9fecf12e8897ee"
             }
           },
-
+          "likes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "time",
+              "example": "640cd5ac2d9fecf12e8897ee"
+            }
+          },
+          "youtube": {
+            "type": "string",
+            "description": "youtube",
+            "example": "https://www.youtube.com/watch?v=-gF8d-fitkU"
+          },
           "tags": {
             "type": "array",
             "items": {
               "type": "string",
               "description": "tags",
-              "example": "Tart"
+              "example": "Pasta"
             }
           },
           "createdAt": {
             "type": "string",
             "description": "createdAt",
-            "example": "2023-03-11T19:25:33.239+00:00"
+            "example": "2023-03-11T19:25:33.240+00:00"
           },
           "updatedAt": {
             "type": "string",
             "description": "updatedAt",
-            "example": "2023-03-22T11:38:07.552+00:00"
+            "example": "2023-03-11T19:25:33.240+00:00"
           },
           "ingredients": {
             "type": "array",
@@ -1251,13 +1262,13 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "description": "createdAt",
-                  "example": "640c2dd963a319ea671e3743"
+                  "description": "id ingredient",
+                  "example": "640c2dd963a319ea671e372e"
                 },
                 "measure": {
                   "type": "string",
-                  "description": "createdAt",
-                  "example": "175g/6oz2"
+                  "description": "measure",
+                  "example": "2"
                 }
               }
             }
@@ -1526,6 +1537,76 @@
                 "type": null
               }
             ]
+          }
+        }
+      },
+            "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "desctiption": "code",
+            "example": "201"
+          },
+          "status": {
+            "type": "string",
+            "desctiption": "code message",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "required": ["User", "token"],
+            "properties": {
+              "User": {
+                "required": ["id", "name", "email", "avatarURL"],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "User's id",
+                    "example": "6429e180bf4c8cd15a219e1d"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "User's name",
+                    "example": "User"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  },
+                  "avtarURL": {
+                    "type": "string",
+                    "description": "User's avatar",
+                    "example": "User's avatar link"
+                  },
+                  "token": {
+                    "type": "string",
+                    "description": "User's token",
+                    "example": "2194d847192801764981s7mn9"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CurrentUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "URL to the user avatar",
+            "example": "url avatar examle"
           }
         }
       }
