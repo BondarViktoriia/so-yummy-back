@@ -1,9 +1,9 @@
 const { RequestError } = require("../../helpers");
-const { Recipe } = require("../../models");
+const { OwnRecipe } = require("../../models");
 
 const getOwnerRecipes = async(req, res) => {
     const { _id: owner } = req.user;
-    const data = await Recipe.find({ owner });
+    const data = await OwnRecipe.find({ owner });
     if (!data) {
         throw RequestError(404, "Not found");
     }

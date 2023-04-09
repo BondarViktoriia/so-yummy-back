@@ -45,7 +45,7 @@ const recipeSchema = new Schema(
         // Ingredient id (ID інградієнту)
         id: {
           type: Schema.Types.ObjectId,
-          ref: 'ingred',
+          ref: "ingred",
         },
         // Ingradient quantity (Кількість інградієнту)
         measure: {
@@ -115,8 +115,10 @@ const addSchema = Joi.object({
 });
 
 const Recipe = model("recipes", recipeSchema);
+const OwnRecipe = model("recipes", recipeSchema, "ownRecipies");
 
 module.exports = {
   addSchema,
   Recipe,
+  OwnRecipe
 };
