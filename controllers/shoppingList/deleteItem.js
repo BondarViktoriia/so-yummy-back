@@ -3,7 +3,7 @@ const ctrlWrapper = require("../../middlewares/ctrlWrapper");
 const RequestError = require("../../helpers/RequestError");
 const { isValidObjectId } = require("mongoose");
 
-const { ShoppingListModel } = require('../../models');
+const { ShoppingListModel } = require("../../models");
 const { ShoppingList } = ShoppingListModel;
 
 const deleteItem = async (req, res, next) => {
@@ -12,16 +12,19 @@ const deleteItem = async (req, res, next) => {
     next(RequestError(400, `${id} is not valid id!`));
   }
   const owner = req.user._id;
-  const deletedItem = await ShoppingList.findOneAndUpdate(
+  const updatedList = await ShoppingList.findOneAndUpdate(
     {
       owner,
     },
-    { $pull: { ingredients: { _id: id } } }
+    { $pull: { ingredients: { _id: id } } },
+    { returnDocument: "after" }
   );
-  if (!deletedItem) {
+  if (!updatedList) {
     throw RequestError(404, "Not found");
   }
-  res.status(200).json({ message: "Item deleted from shopping list" });
+  res
+    .status(200)
+    .json({ message: "Item deleted from shopping list", data: updatedList });
 };
 
 module.exports = {
