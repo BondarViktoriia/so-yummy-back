@@ -6,55 +6,54 @@ const addRecipe = async (req, res) => {
   const { _id: owner } = req.user;
 
   const imgPath = req.file.path;
-  console.log("addRecipe   req.file:", req.file.path);
-  console.log("addRecipe   req.body:", req.body);
-  console.log("addRecipe   req.user:", req.user);
-  const { ingredients } = req.body;
-  console.log("addRecipe   ingredients:", ingredients);
+  const { ingredients, title, description, category, time, instructions } =
+    req.body;
 
-  if (typeof ingredients === "string") {
-    req.body.ingredients = ingredients.split(",");
-    console.log("addRecipe   req.body.ingredients:", req.body.ingredients);
-  }
+  const fixedIngreds = JSON.parse(ingredients);
 
-  try {
-    const thumb = await cloudinary.uploader
-      .upload(imgPath, {
-        folder: "recipe",
-        width: 200,
-        height: 200,
-      })
-      .then((result) => {
-        const thumb = result.secure_url;
-        return thumb;
-      });
+  await cloudinary.uploader
+    .upload(imgPath, {
+      folder: "recipe",
+      width: 200,
+      height: 200,
+    })
+    .then((result) => {
+      const thumb = result.secure_url;
+      cloudinary.uploader
+        .upload(imgPath, {
+          folder: "recipe",
+          width: 100,
+          height: 100,
+        })
+        .then(async (result) => {
+          const preview = result.secure_url;
 
-    const preview = cloudinary.uploader
-      .upload(imgPath, {
-        folder: "recipe",
-        width: 100,
-        height: 100,
-      })
-      .then((result) => {
-        const preview = result.secure_url;
-        return preview;
-      });
-
-    const data = await OwnRecipe.create({
-      ...req.body,
-      thumb,
-      preview,
-      owner,
+          const data = await OwnRecipe.create({
+            ingredients: fixedIngreds,
+            title,
+            description,
+            category,
+            time,
+            instructions,
+            thumb,
+            preview,
+            owner,
+          });
+          return res
+            .status(201)
+            .json({
+              status: "Success",
+              code: 201,
+              data,
+            })
+            .catch(() => {
+              RequestError(500, "Server error");
+            });
+        })
+        .catch(() => {
+          RequestError(500, "Server error");
+        });
     });
-    console.log(".then   data:", data);
-    return res.status(201).json({
-      status: "Success",
-      code: 201,
-      data,
-    });
-  } catch (error) {
-    throw RequestError(500, "Server error");
-  }
 };
 
 module.exports = addRecipe;
