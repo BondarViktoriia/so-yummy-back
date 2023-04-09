@@ -97,7 +97,7 @@ const signup = async (req, res, next) => {
 const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email });
   if (!user) {
     throw RequestError(401, "Email is not verified");
   }
@@ -135,7 +135,6 @@ const getCurrent = async (req, res) => {
     password,
   });
 };
-
 
 const logout = async (req, res) => {
   const { _id } = req.user;
