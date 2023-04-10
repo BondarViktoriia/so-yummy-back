@@ -9,8 +9,8 @@ const router = express.Router();
 router.post(
   "/",
   auth,
+  uploadCloud.single("imgURL"),
   validation(addSchema),
-  uploadCloud.single("image"),
   recipe.addRecipe
 );
 router.delete("/:id", auth, recipe.deleteRecipe);

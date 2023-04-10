@@ -1,7 +1,9 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
+const { mongoose } = require("mongoose");
 
 const { handleSchemaError } = require("../helpers");
+const ObjectId = mongoose.Types.ObjectId;
 
 const recipeSchema = new Schema(
   {
@@ -26,7 +28,6 @@ const recipeSchema = new Schema(
 
     thumb: {
       type: String,
-      required: true,
     },
     // Recipe category (Категорія рецепту)
     category: {
@@ -45,7 +46,7 @@ const recipeSchema = new Schema(
         // Ingredient id (ID інградієнту)
         id: {
           type: Schema.Types.ObjectId,
-          ref: 'ingred',
+          ref: "ingred",
         },
         // Ingradient quantity (Кількість інградієнту)
         measure: {
@@ -84,15 +85,17 @@ const recipeSchema = new Schema(
 recipeSchema.post("save", handleSchemaError);
 
 const addSchema = Joi.object({
-  title: Joi.string().required().messages({
-    "string.empty": `Recipe title cannot be empty`,
-    "any.required": `Recipe title is required`,
-  }),
+  title: Joi.string().required(),
   description: Joi.string().required().messages({
     "string.empty": `Recipe description cannot be empty`,
     "any.required": `Recipe description is required`,
   }),
-  imgURL: Joi.string().required().messages({
+
+  thumb: Joi.string().messages({
+    "string.empty": `Recipe image cannot be empty`,
+    "any.required": `Recipe image is required`,
+  }),
+  preview: Joi.string().messages({
     "string.empty": `Recipe image cannot be empty`,
     "any.required": `Recipe image is required`,
   }),
@@ -104,7 +107,7 @@ const addSchema = Joi.object({
     "string.empty": `Recipe time cannot be empty`,
     "any.required": `Recipe time is required`,
   }),
-  ingredients: Joi.array().required().messages({
+  ingredients: Joi.string().required().messages({
     "string.empty": `Recipe ingradients cannot be empty`,
     "any.required": `Recipe ingradients is required`,
   }),
@@ -115,8 +118,10 @@ const addSchema = Joi.object({
 });
 
 const Recipe = model("recipes", recipeSchema);
+const OwnRecipe = model("ownRecipes", recipeSchema, "ownRecipies");
 
 module.exports = {
   addSchema,
   Recipe,
+  OwnRecipe,
 };
