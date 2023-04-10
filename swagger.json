@@ -9,7 +9,7 @@
   "produces": ["application/json"],
   "servers": [
     {
-      "url": "http://localhost:3000/api"
+      "url": "http://localhost:3001/api"
     },
     {
       "url": "https://so-yummy-7n94.onrender.com/api"
@@ -53,17 +53,17 @@
         "parameters": [],
         "sequrity": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "",
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FavoriteResponse"
-              }
+        "description": "",
+        "required": false,
+        "content": {
+        "application/json": {
+               "schema": {
+                 "$ref": "#/components/schemas/FavoriteResponse"
+               }
             }
-          }
-        },
-        "response": {
+           }
+         },
+        "responses": {
           "200": {
             "description": "Succesfull operations",
             "content": {
@@ -83,7 +83,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "desctiption": "message",
+                       "desctiption": "message",
                       "example": "Not Found"
                     }
                   }
@@ -109,7 +109,7 @@
         "tags": ["Favorite"],
         "summary": "Add favorite",
         "parameters": [],
-        "sequrity": [{ "Bearer": [] }],
+         "sequrity": [{ "Bearer": [] }],
         "requestBody": {
           "description": "",
           "required": false,
@@ -121,7 +121,7 @@
             }
           }
         },
-        "response": {
+        "responses": {
           "201": {
             "description": "Added to favorite",
             "content": {
@@ -141,7 +141,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "desctiption": "message",
+                       "desctiption": "message",
                       "example": "This recipe has already added to favorite"
                     }
                   }
@@ -165,7 +165,7 @@
         "tags": ["Favorite"],
         "summary": "Delete favorite",
         "parameters": [],
-        "sequrity": [{ "Bearer": [] }],
+         "sequrity": [{ "Bearer": [] }],
         "requestBody": {
           "description": "",
           "required": false,
@@ -177,7 +177,7 @@
             }
           }
         },
-        "response": {
+        "responses": {
           "201": {
             "description": "Deleted from favorite",
             "content": {
@@ -197,7 +197,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "desctiption": "message",
+                       "desctiption": "message",
                       "example": "This recipe is not in favorites"
                     }
                   }
@@ -212,11 +212,11 @@
       "get": {
         "tags": ["OwnRecipes"],
         "summary": "Own recipes list",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
+         "security": [
+           {
+             "Bearer": []
+           }
+         ],
         "responses": {
           "200": {
             "description": "Success",
@@ -237,7 +237,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "desctiption": "message",
+                       "desctiption": "message",
                       "example": "Not Found"
                     }
                   }
@@ -260,11 +260,11 @@
       "post": {
         "tags": ["OwnRecipes"],
         "summary": "Add own recipe",
-        "security": [
-          {
-            "Bearer": []
+         "security": [
+           {
+             "Bearer": []
           }
-        ],
+         ],
         "parameters": [],
         "requestBody": {
           "description": "Add own recipe",
@@ -311,11 +311,11 @@
       "delete": {
         "tags": ["OwnRecipes"],
         "summary": "Delete own recipe",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
+         "security": [
+           {
+             "Bearer": []
+           }
+         ],
         "responses": {
           "200": {
             "description": "Success",
@@ -343,7 +343,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "desctiption": "message",
+                       "desctiption": "message",
                       "example": "Not Found"
                     }
                   }
@@ -358,11 +358,11 @@
       "get": {
         "tags": ["Shopping-list"],
         "summary": "User's shopping list",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
+         "security": [
+           {
+             "Bearer": []
+           }
+         ],
         "parameters": [],
         "responses": {
           "200": {
@@ -370,7 +370,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ShoppingListResponse"
+                   "$ref": "#/components/schemas/ShoppingListResponse"
                 }
               }
             }
@@ -380,11 +380,11 @@
       "post": {
         "tags": ["Shopping-list"],
         "summary": "Add ingredient to user's shopping list",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
+         "security": [
+           {
+             "Bearer": []
+           }
+         ],
         "parameters": [],
         "requestBody": {
           "description": "Ingredient's info",
@@ -425,11 +425,11 @@
       "delete": {
         "tags": ["Shopping-list"],
         "summary": "Delete ingredient from shopping list",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
+         "security": [
+           {
+             "Bearer": []
+           }
+         ],
         "responses": {
           "200": {
             "description": "Item deleted from shopping list",
@@ -459,11 +459,11 @@
       "get": {
         "tags": ["Popular"],
         "summary": "Popular recipes list",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
+         "security": [
+           {
+             "Bearer": []
+           }
+         ],
         "parameters": [],
         "responses": {
           "200": {
@@ -492,24 +492,29 @@
         }
       }
     },
-    "/recipes/recipe/:id": {
-  "get": {
+    "/recipes/recipe/{id}": {
+      "get": {
         "tags": ["Recipes"],
         "summary": "Get recipe",
-        "security": [{ "Bearer": [] }],
+         "security": [
+           {
+             "Bearer": []
+           }
+         ],
         "parameters": [
           {
             "in": "path",
             "name": "id",
             "required": true,
-            "type": "string",
-            "description": "Id recipe",
-            "exampl": "640cd5ac2d9fecf12e8897ee"
+            "description": "Recipe's id",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -518,49 +523,29 @@
               }
             }
           },
-          "400": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "desctiption": "message",
-                      "example": ":id is not a valid"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotAuthorized"
-                }
-              }
-            }
+          "404": {
+            "description": "Recipe by id not found.",
+            "content": {}
           }
         }
       }
     },
-    "/recipes/recipe/:category": {
+    "/recipes/recipe/{category}": {
       "get": {
         "tags": ["Recipes"],
         "summary": "Get recipe by category",
-        "security": [{ "Bearer": [] }],
+         "security": [{ "Bearer": [] }],
         "parameters": [
           {
             "in": "path",
             "name": "category",
             "required": true,
-            "type": "string",
+             "type": "string",
             "description": "category recipe",
-            "exampl": "Beef"
+             "exampl": "Beef",
+                        "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -607,7 +592,7 @@
       "get": {
         "tags": ["Recipes"],
         "summary": "Get recipe",
-        "security": [{ "Bearer": [] }],
+         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "OK",
@@ -742,19 +727,22 @@
       "get": {
         "tags": ["Auth"],
         "summary": "Gets the current user",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+         "security": [
+           {
+             "bearerAuth": []
+           }
+         ],
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Access token",
             "required": true,
-            "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+             "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+                        "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -769,23 +757,35 @@
         }
       }
     },
-    "/auth/logout": {
+"/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "Logs out a user",
-        "security": [
-          {
-            "bearerAuth": []
+         "security": [
+           {
+             "bearerAuth": []
           }
-        ],
+         ],
         "parameters": [
           {
             "name": "Logout",
             "in": "header",
             "description": "Access token",
             "required": true,
-            "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjllNGZhZWI4ZmFiN2JkMzY4NjU0MiIsImlhdCI6MTY4MDQ2ODUwMywiZXhwIjoxNjgwNTUxMzAzfQ.jPp-RjUtVGOfEkJtqjoOmUysZAwXtMFE5-UKnvLienU"
+             "type": "string",
+             "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "logged out"
+                    }
+                  }
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -799,11 +799,11 @@
       "get": {
         "tags": ["Ingredients"],
         "summary": "Ingredients list",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
+         "security": [
+           {
+             "Bearer": []
+           }
+         ],
         "parameters": [],
         "responses": {
           "201": {
@@ -832,7 +832,7 @@
         "description": "response",
         "properties": {
           "code": {
-            "type": "intager",
+            "type": "integer",
             "description": "code",
             "example": "200"
           },
@@ -1142,7 +1142,7 @@
         "description": "response",
         "properties": {
           "code": {
-            "type": "intager",
+            "type": "integer",
             "description": "code",
             "example": "200"
           },
@@ -1211,7 +1211,7 @@
             "example": "45"
           },
           "popularity": {
-            "type": "intager",
+            "type": "integer",
             "description": "popularity",
             "example": "2"
           },
@@ -1280,7 +1280,7 @@
         "description": "response",
         "properties": {
           "code": {
-            "type": "intager",
+            "type": "integer",
             "description": "code",
             "example": "200"
           },
@@ -1317,7 +1317,7 @@
         "description": "response",
         "properties": {
           "code": {
-            "type": "intager",
+            "type": "integer",
             "description": "code",
             "example": "200"
           },
@@ -1359,12 +1359,12 @@
         "properties": {
           "code": {
             "type": "string",
-            "desctiption": "code",
+             "desctiption": "code",
             "example": "201"
           },
           "message": {
             "type": "string",
-            "desctiption": "code message",
+             "desctiption": "code message",
             "example": "success"
           },
           "data": {
@@ -1431,12 +1431,12 @@
         "properties": {
           "code": {
             "type": "string",
-            "desctiption": "code",
+             "desctiption": "code",
             "example": "201"
           },
           "status": {
             "type": "string",
-            "desctiption": "code message",
+             "desctiption": "code message",
             "example": "success"
           },
           "data": {
@@ -1482,12 +1482,12 @@
         "properties": {
           "code": {
             "type": "string",
-            "desctiption": "code",
+             "desctiption": "code",
             "example": "200"
           },
           "status": {
             "type": "string",
-            "desctiption": "status",
+             "desctiption": "status",
             "example": "success"
           }
         }
@@ -1545,12 +1545,12 @@
         "properties": {
           "code": {
             "type": "string",
-            "desctiption": "code",
+             "desctiption": "code",
             "example": "201"
           },
           "status": {
             "type": "string",
-            "desctiption": "code message",
+             "desctiption": "code message",
             "example": "success"
           },
           "data": {
@@ -1613,11 +1613,11 @@
     }
   },
 
-  "securitySchemes": {
-    "Bearer": {
-      "type": "http",
-      "scheme": "bearer",
-      "bearerFormat": "JWT"
-    }
-  }
+   "securitySchemes": {
+     "Bearer": {
+       "type": "http",
+       "scheme": "bearer",
+       "bearerFormat": "JWT"
+     }
+   }
 }
