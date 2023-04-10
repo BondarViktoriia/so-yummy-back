@@ -8,12 +8,14 @@ const deleteFromFavorite = async (req, res) => {
   if (!isFavorite) {
     throw RequestError(409, "This recipe is not in favorites");
   }
-  await Recipe.findOneAndUpdate(
+  const removedRecipe = await Recipe.findOneAndUpdate(
     { _id: id },
     { $pull: { favorites: userId } },
     { new: true }
   );
-  res.status(201).json({ message: "Deleted from favorite" });
+  res
+    .status(201)
+    .json({ message: "Deleted from favorite", data: removedRecipe });
 };
 
 module.exports = { deleteFromFavorite };

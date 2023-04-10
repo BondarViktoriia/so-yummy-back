@@ -8,7 +8,7 @@ const addToFavorite = async (req, res) => {
   if (isFavorite) {
     throw RequestError(409, "This recipe has already added to favorite");
   }
-  const favoriteRecipe = await Recipe.updateOne(
+  const favoriteRecipe = await Recipe.findOneAndUpdate(
     { _id: id },
     { $push: { favorites: userId } },
     { new: true }
@@ -16,7 +16,7 @@ const addToFavorite = async (req, res) => {
   if (!favoriteRecipe) {
     throw RequestError(400, "Something is wrong");
   }
-  res.status(201).json({ message: "Added to favorite" });
+  res.status(201).json({ message: "Added to favorite", data: favoriteRecipe });
 };
 
 module.exports = { addToFavorite };
