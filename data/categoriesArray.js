@@ -1,4 +1,4 @@
-module.exports = [
+const categoriesArray = [
   "Beef",
   "Chicken",
   "Dessert",
@@ -14,3 +14,5 @@ module.exports = [
   "Breakfast",
   "Goat",
 ];
+
+module.exports = categoriesArray;
