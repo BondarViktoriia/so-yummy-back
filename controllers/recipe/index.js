@@ -6,16 +6,16 @@ const getOwnerRecipes = require("./getOwnerRecipes");
 const { getRecipeById } = require("./getRecipeById");
 const { getPopularRecipes } = require("./getPopularRecipes");
 
-const {searchRecipe} = require("./searchRecipe")
-const {searchRecipeByIngredient}= require("./searchRecipe")
+const { searchRecipe } = require("./searchRecipe");
+const { searchRecipeByIngredient } = require("./searchRecipe");
 const { getFavorite } = require("./getFavorite");
 
 const { addToFavorite } = require("./addToFavorite");
 const { deleteFromFavorite } = require("./deleteFromFavorite");
 
-const { getCategories } = require("./getCategories");
+const { getRecipesByCategory } = require("./getRecipesByCategory");
+const { getCategoriesList } = require("./getCategoriesList");
 const { getRecipeMain } = require("./getRecipeMain");
-
 
 module.exports = {
   getRecipeById: ctrlWrapper(getRecipeById),
@@ -27,7 +27,8 @@ module.exports = {
   searchRecipe: ctrlWrapper(searchRecipe),
   searchRecipeByIngredient: ctrlWrapper(searchRecipeByIngredient),
   addToFavorite: ctrlWrapper(addToFavorite),
-  getCategories: ctrlWrapper(getCategories),
+  getRecipesByCategory: ctrlWrapper(getRecipesByCategory),
+  getCategoriesList: ctrlWrapper(getCategoriesList),
   getFavorite: ctrlWrapper(getFavorite),
   deleteFromFavorite: ctrlWrapper(deleteFromFavorite),
 };
