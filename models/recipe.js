@@ -1,12 +1,14 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
-const { mongoose } = require("mongoose");
 
 const { handleSchemaError } = require("../helpers");
-const ObjectId = mongoose.Types.ObjectId;
 
 const recipeSchema = new Schema(
   {
+    id: {
+      type: Schema.Types.ObjectId,
+    },
+
     // Recipe name (Назва рецепту)
     title: {
       type: String,
@@ -64,7 +66,7 @@ const recipeSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-      required: true,
+      // required: true,
     },
     // Users who added this recipe to their favorites (Користувачі що додали рецепт до вибраного)
     favorites: [
@@ -119,9 +121,11 @@ const addSchema = Joi.object({
 
 const Recipe = model("recipes", recipeSchema);
 const OwnRecipe = model("ownRecipes", recipeSchema, "ownRecipies");
+const PopularRecipe = model("popularRecipes", recipeSchema, "popularRecipe");
 
 module.exports = {
   addSchema,
   Recipe,
   OwnRecipe,
+  PopularRecipe,
 };
