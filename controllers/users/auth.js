@@ -3,9 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 // const gravatar = require("gravatar");
-const path = require("path");
-const fs = require("fs/promises");
-const Jimp = require("jimp");
+// const path = require("path");
+// const fs = require("fs/promises");
+// const Jimp = require("jimp");
 const { v4: uuidv4 } = require("uuid");
 
 const { RequestError } = require("../../helpers");
@@ -15,7 +15,7 @@ const { ctrlWrapper } = require("../../middlewares");
 const { SECRET_KEY } = process.env;
 
 // const avatarsDir = path.join(__dirname, "../", "public", "avatars");
-const { DEFAULT_AVATAR_iMG_URL } = require("./default");
+const { defaultAva } = require("./default");
 
 const signup = async (req, res, next) => {
   const { email, password } = req.body;
@@ -27,7 +27,7 @@ const signup = async (req, res, next) => {
 
   const hashPassword = await bcrypt.hash(password, 10);
   // const avatarURL = gravatar.url(email);
-  const avatar = req.file?.path || DEFAULT_AVATAR_iMG_URL;
+  const avatar = req.file?.path || defaultAva;
   const verificationToken = uuidv4();
 
   const newUser = await User.create({
