@@ -14,7 +14,8 @@ const { ctrlWrapper } = require("../../middlewares");
 
 const { SECRET_KEY } = process.env;
 
-const avatarsDir = path.join(__dirname, "../", "public", "avatars");
+// const avatarsDir = path.join(__dirname, "../", "public", "avatars");
+const { DEFAULT_AVATAR_iMG_URL } = require("./default");
 
 const signup = async (req, res, next) => {
   const { email, password } = req.body;
@@ -26,13 +27,14 @@ const signup = async (req, res, next) => {
 
   const hashPassword = await bcrypt.hash(password, 10);
   // const avatarURL = gravatar.url(email);
+  const avatar = req.file?.path || DEFAULT_AVATAR_iMG_URL;
   const verificationToken = uuidv4();
 
   const newUser = await User.create({
     ...req.body,
     password: hashPassword,
-    // avatarURL,
     verificationToken,
+    avatar,
   });
 
   // const verifyEmail = {
@@ -48,51 +50,10 @@ const signup = async (req, res, next) => {
     user: {
       email: newUser.email,
       name: newUser.name,
-      // subscription: newUser.subscription,
+      avatar: newUser.avatar,
     },
   });
 };
-
-// const verifyEmail = async (req, res) => {
-//   const { verificationToken } = req.params;
-//   const user = await User.findOne({ verificationToken });
-//   if (!user) {
-//     throw HttpError(401, "Email not found");
-//   }
-
-//   await User.findByIdAndUpdate(user._id, {
-//     verify: true,
-//     verificationToken: "",
-//   });
-
-//   res.json({
-//     message: "Email verify success",
-//   });
-// };
-
-// const resendVerifyEmail = async (req, res) => {
-//   const { email } = req.body;
-//   const user = await User.findOne({ email });
-
-//   if (!user) {
-//     throw HttpError(401, "Email not found");
-//   }
-//   if (!user.verify) {
-//     throw HttpError(401, "Email is already verified");
-//   }
-
-//   const verifyEmail = {
-//     to: email,
-//     subject: "Verify email",
-//     html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${user.verificationToken}">Click verify email</a>`,
-//   };
-
-//   await sendEmail(verifyEmail);
-
-//   res.status(201).json({
-//     message: "Verification email is sent success",
-//   });
-// };
 
 const signin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -148,24 +109,62 @@ const logout = async (req, res) => {
   });
 };
 
-const updateAvatar = async (req, res) => {
+// const updateAvatar = async (req, res) => {
+//   const { _id } = req.user;
+//   const { path: tempUpload, originalname } = req.file;
+//   const filename = `${_id}_${originalname}`;
+
+//   const resultUpload = path.join(avatarsDir, filename);
+
+//   const image = await Jimp.read(tempUpload);
+//   await image.resize(250, 250).writeAsync(tempUpload);
+
+//   await fs.rename(tempUpload, resultUpload);
+//   const avatarURL = path.join("avatars", filename);
+
+//   await User.findByIdAndUpdate(_id, { avatarURL });
+
+//   res.json({
+//     avatarURL,
+//   });
+// };
+
+const updateUser = async (req, res) => {
   const { _id } = req.user;
-  const { path: tempUpload, originalname } = req.file;
-  const filename = `${_id}_${originalname}`;
+  const avatarURL = req.file?.path;
 
-  const resultUpload = path.join(avatarsDir, filename);
+  const user = await User.findById({ _id });
 
-  const image = await Jimp.read(tempUpload);
-  await image.resize(250, 250).writeAsync(tempUpload);
+  if (!avatarURL) {
+    user.name = req.body.name;
+    user.save();
 
-  await fs.rename(tempUpload, resultUpload);
-  const avatarURL = path.join("avatars", filename);
+    res.json({
+      status: "success",
+      code: 200,
+      data: {
+        user: {
+          name: req.body.name,
+          avatar: user.avatar,
+        },
+      },
+    });
+  } else {
+    user.name = req.body.name;
+    user.avatar = avatarURL;
+    user.save();
 
-  await User.findByIdAndUpdate(_id, { avatarURL });
-
-  res.json({
-    avatarURL,
-  });
+    res.json({
+      status: "success",
+      code: 200,
+      data: {
+        user: {
+          name: req.body.name,
+          avatar: avatarURL,
+        },
+      },
+    });
+  }
 };
 
 module.exports = {
@@ -175,5 +174,5 @@ module.exports = {
   signin: ctrlWrapper(signin),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
-  updateAvatar: ctrlWrapper(updateAvatar),
+  updateUser: ctrlWrapper(updateUser),
 };

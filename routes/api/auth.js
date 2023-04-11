@@ -3,7 +3,7 @@ const express = require("express");
 
 const ctrl = require("../../controllers/users/auth");
 
-const { validation, auth } = require("../../middlewares");
+const { validation, auth, uploadCloud } = require("../../middlewares");
 // ,  upload
 
 const { schemas } = require("../../models/user");
@@ -30,6 +30,14 @@ router.post("/logout", auth, ctrl.logout);
 //   upload.single("avatar"),
 //   ctrl.updateAvatar
 // );
+
+router.patch(
+  "/edit",
+  auth,
+  uploadCloud.single("imgURL"),
+  validation(schemas.updSchema),
+  ctrl.updateUser
+);
 
 module.exports = router;
 
