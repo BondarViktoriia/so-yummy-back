@@ -1,11 +1,10 @@
 const express = require("express");
 const { recipe } = require("../../controllers");
-// const {ingredient} = require("../../controllers");
-// const { auth } = require("../../middlewares");
+const { auth } = require("../../middlewares");
 
 const router = express.Router();
 
-router.get("/recipes", recipe.searchRecipe);
-router.get("/ingredients", recipe.searchRecipeByIngredient)
+router.get("/recipes", auth, recipe.searchRecipe);
+router.get("/ingredients", auth, recipe.searchRecipeByIngredient)
 
 module.exports = router;
