@@ -78,7 +78,9 @@ const signin = async (req, res, next) => {
     token,
     user: {
       email: user.email,
-      subscription: user.subscription,
+      // subscription: user.subscription,
+      name: user.name,
+      avatar: user.avatar,
     },
   });
 };

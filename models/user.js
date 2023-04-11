@@ -65,6 +65,8 @@ const emailSchema = Joi.object({
 const loginSchema = Joi.object({
   password: Joi.string().required(),
   email: Joi.string().required(),
+  name: Joi.string(),
+  avatar: Joi.string(),
 });
 
 const schemas = {
