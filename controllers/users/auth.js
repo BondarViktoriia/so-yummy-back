@@ -2,6 +2,7 @@ const { User } = require("../../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const cloudinary = require("cloudinary").v2;
 
 const { v4: uuidv4 } = require("uuid");
 
@@ -130,6 +131,17 @@ const updateUser = async (req, res) => {
   const { _id } = req.user;
   const avatarURL = req.file?.path;
 
+  let newAvatar;
+  await cloudinary.uploader
+    .upload(avatarURL, {
+      folder: "users",
+      width: 200,
+      height: 200,
+    })
+    .then((result) => {
+      newAvatar = result.secure_url;
+    });
+
   const user = await User.findById({ _id });
 
   if (!avatarURL) {
@@ -148,7 +160,7 @@ const updateUser = async (req, res) => {
     });
   } else {
     user.name = req.body.name;
-    user.avatar = avatarURL;
+    user.avatar = newAvatar;
     user.save();
 
     res.json({
@@ -157,7 +169,7 @@ const updateUser = async (req, res) => {
       data: {
         user: {
           name: req.body.name,
-          avatar: avatarURL,
+          avatar: newAvatar,
         },
       },
     });
