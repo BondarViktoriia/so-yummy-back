@@ -34,7 +34,7 @@ router.post("/logout", auth, ctrl.logout);
 router.patch(
   "/edit",
   auth,
-  uploadCloud.single("imgURL"),
+  uploadCloud.single("avatar"),
   validation(schemas.updSchema),
   ctrl.updateUser
 );
