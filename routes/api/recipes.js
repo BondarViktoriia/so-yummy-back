@@ -8,7 +8,7 @@ router.get("/recipe/:id", recipe.getRecipeById);
 
 router.get("/recipe/category-list", recipe.getCategoriesList);
 
-router.get("/recipe/:categoryName", recipe.getRecipesByCategory);
+router.get("/recipe/categories/:categoryName", recipe.getRecipesByCategory);
 
 router.get("/main", recipe.getRecipeMain);
 
