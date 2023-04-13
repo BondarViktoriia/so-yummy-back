@@ -14,16 +14,18 @@ const addRecipe = async (req, res) => {
   await cloudinary.uploader
     .upload(imgPath, {
       folder: "recipe",
-      width: 200,
-      height: 200,
+      width: 433,
+      height: 332,
+      crop: "pad",
     })
     .then((result) => {
       const thumb = result.secure_url;
       cloudinary.uploader
         .upload(imgPath, {
           folder: "recipe",
-          width: 100,
-          height: 100,
+          width: 318,
+          height: 324,
+          crop: "pad",
         })
         .then(async (result) => {
           const preview = result.secure_url;
