@@ -2,10 +2,13 @@ const { OwnRecipe } = require("../../models");
 const cloudinary = require("cloudinary").v2;
 const { RequestError } = require("../../helpers");
 
+ const DEFAULT_RECIPE_IMG_URL= 'https://res.cloudinary.com/dcpsasqw8/image/upload/v1678474415/assets/own_recipes_photos/dafault.png'
+
 const addRecipe = async (req, res) => {
   const { _id: owner } = req.user;
 
-  const imgPath = req.file.path;
+  // const imgPath = req.file.path;
+  const imgPath = req.file?.path ?? DEFAULT_RECIPE_IMG_URL;
   const { ingredients, title, description, category, time, instructions } =
     req.body;
 
@@ -16,7 +19,7 @@ const addRecipe = async (req, res) => {
       folder: "recipe",
       width: 433,
       height: 332,
-      crop: "pad",
+      // crop: "pad",
     })
     .then((result) => {
       const thumb = result.secure_url;
