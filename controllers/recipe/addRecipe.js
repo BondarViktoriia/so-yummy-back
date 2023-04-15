@@ -8,7 +8,7 @@ const addRecipe = async (req, res) => {
   const { _id: owner } = req.user;
 
   // const imgPath = req.file.path;
-  const imgPath = req.file?.path ?? DEFAULT_RECIPE_IMG_URL;
+  const imgPath = req.file.path ?? DEFAULT_RECIPE_IMG_URL;
   const { ingredients, title, description, category, time, instructions } =
     req.body;
 
