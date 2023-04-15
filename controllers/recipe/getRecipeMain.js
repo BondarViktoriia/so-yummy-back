@@ -1,38 +1,55 @@
-const {Recipe} = require('../../models')
+const { Recipe } = require("../../models");
 
 const getRecipeMain = async (req, res) => {
-  
-    const result = []
-  const chicken = await Recipe.find({
-        category: ["Chicken"] ,        
-    }, '-createdAt -updatedAt').limit(4)
-    result.push(chicken)
+  const result = [];
+  const chicken = {
+    category: "chicken",
+    results: await Recipe.find(
+      {
+        category: ["Chicken"],
+      },
+      "-createdAt -updatedAt"
+    ).limit(4),
+  };
+  result.push(chicken);
 
-  const breakfast = await Recipe.find({
+  const breakfast = {
+    category: "breakfast",
+    results : await Recipe.find(
+      {
+        category: ["Breakfast"],
+      },
+      "-createdAt -updatedAt"
+    ).limit(4),
+  };
+  result.push(breakfast);
 
-      category: ["Breakfast"],
-    }, '-createdAt -updatedAt').limit(4)
-    result.push(breakfast)
+  const desserts = {
+    category: "desserts",
+    results: await Recipe.find(
+      {
+        category: ["Dessert"],
+      },
+      "-createdAt -updatedAt"
+    ).limit(4),
+  };
+  result.push(desserts);
 
-  const desserts = await Recipe.find({
+  const miscellaneous = {
+    category: "miscellaneous",
+    results: await Recipe.find(
+      {
+        category: ["Miscellaneous"],
+      },
+      "-createdAt -updatedAt"
+    ).limit(4),
+  }
 
-      category: ["Dessert"],
-    }, '-createdAt -updatedAt').limit(4)
-     result.push(desserts)
-    
-  const miscellaneous = await Recipe.find({
+  result.push(miscellaneous);
 
-      category: ["Miscellaneous"],
-    }, '-createdAt -updatedAt').limit(4)
-    
-    result.push(miscellaneous)
-
-   
-     res.status(200).json(result) 
-} 
-
+  res.status(200).json(result);
+};
 
 module.exports = {
-    getRecipeMain
-
-}
+  getRecipeMain,
+};
