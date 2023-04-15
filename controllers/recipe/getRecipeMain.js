@@ -3,7 +3,7 @@ const { Recipe } = require("../../models");
 const getRecipeMain = async (req, res) => {
   const result = [];
   const chicken = {
-    category: "chicken",
+    category: "Chicken",
     results: await Recipe.find(
       {
         category: ["Chicken"],
@@ -14,7 +14,7 @@ const getRecipeMain = async (req, res) => {
   result.push(chicken);
 
   const breakfast = {
-    category: "breakfast",
+    category: "Breakfast",
     results : await Recipe.find(
       {
         category: ["Breakfast"],
@@ -25,7 +25,7 @@ const getRecipeMain = async (req, res) => {
   result.push(breakfast);
 
   const desserts = {
-    category: "desserts",
+    category: "Desserts",
     results: await Recipe.find(
       {
         category: ["Dessert"],
@@ -36,7 +36,7 @@ const getRecipeMain = async (req, res) => {
   result.push(desserts);
 
   const miscellaneous = {
-    category: "miscellaneous",
+    category: "Miscellaneous",
     results: await Recipe.find(
       {
         category: ["Miscellaneous"],
