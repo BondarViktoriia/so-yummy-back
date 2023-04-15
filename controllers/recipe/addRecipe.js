@@ -7,8 +7,8 @@ const { RequestError } = require("../../helpers");
 const addRecipe = async (req, res) => {
   const { _id: owner } = req.user;
 
-  // const imgPath = req.file.path;
-  const imgPath = req.file?req.file.path : 'https://res.cloudinary.com/dcpsasqw8/image/upload/v1678474415/assets/own_recipes_photos/dafault.png';
+  const imgPath = req.file.path;
+  // const imgPath = req.file?req.file.path : 'https://res.cloudinary.com/dcpsasqw8/image/upload/v1678474415/assets/own_recipes_photos/dafault.png';
   const { ingredients, title, description, category, time, instructions } =
     req.body;
 
