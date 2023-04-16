@@ -130,17 +130,22 @@ const logout = async (req, res) => {
 const updateUser = async (req, res) => {
   const { _id } = req.user;
   const avatarURL = req.file?.path;
-
   let newAvatar;
-  await cloudinary.uploader
-    .upload(avatarURL, {
-      folder: "users",
-      width: 200,
-      height: 200,
-    })
-    .then((result) => {
-      newAvatar = result.secure_url;
-    });
+  if (avatarURL) {
+    try {
+      await cloudinary.uploader
+        .upload(avatarURL, {
+          folder: "users",
+          width: 200,
+          height: 200,
+        })
+        .then((result) => {
+          newAvatar = result.secure_url;
+        });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   const user = await User.findById({ _id });
 
