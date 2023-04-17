@@ -21,7 +21,7 @@ const addRecipe = async (req, res) => {
       folder: "recipe",
       width: 433,
       height: 332,
-      // crop: "pad",
+      crop: "pad",
     })
     .then((result) => {
       thumb =
